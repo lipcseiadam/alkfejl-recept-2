@@ -2,16 +2,15 @@
 
 {% block content %}
 
-<h2>Húsleves</h2>
-<p>Leves</p>
+<h2>{{ recipe.name }}</h2>
+<p>{{ recipe.category.name }}</p>
 <h3> Hozzávalók</h3>
 <pre>
-Hús 
-víz
+{{ recipe.ingredients }}
 </pre>
-<h3> Leírás</h3>
+<h3> Leírás</h3>    
 <pre>
-főzd meg
+{{ recipe.instructions }}
 </pre>
 
 {% endblock %}
