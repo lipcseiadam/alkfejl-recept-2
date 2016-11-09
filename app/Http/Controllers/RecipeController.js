@@ -47,6 +47,7 @@ class RecipeController {
             return
         }
 
+        recipeData.user_id = request.currentUser.id
         yield Recipe.create(recipeData);
 
         response.redirect('/');
@@ -70,6 +71,12 @@ class RecipeController {
         const categories = yield Category.all();
         const id = request.param('id')        
         const recipe = yield Recipe.find(id)
+
+        if(request.currentUser.id != recipe.currentUser.id){
+            response.unauthorized('Nincs jog')
+            return
+        }
+
         if(!recipe){
             response.notFound('Recipe does not found')
             return
@@ -100,9 +107,32 @@ class RecipeController {
             return
         }
 
-        yield .save();
+        const id = request.param('id')        
+        const recipe = yield Recipe.find(id)
 
-        response.redirect('/recipes/:id');
+        if(request.currentUser.id != recipe.currentUser.id){
+            response.unauthorized()
+            return
+        }
+
+        recipe.name = recipeData.name
+        recipe.ingredients = recipeData.ingredients
+        recipe.instructions = recipeData.instructions
+        recipe.category_id = recipeData.category_id
+
+        yield recipe.save();
+
+        response.redirect('/');
+    }
+
+    *doDelete(request, response){
+         const id = request.param('id')        
+        const recipe = yield Recipe.find(id)
+        if(!recipe){
+
+        }
+        yield recipe.delete()
+        response.redirect('/')
     }        
 }
 
