@@ -8,5 +8,12 @@ console.log($('[id]'))*/
 
 //bejárások
 //1 kattintott link kategóriájának neve
-const $li = $('.list-group-item').eq(2)
-console.log( $li.parent().prev().children().text())
+/*const $li = $('.list-group-item').eq(2)
+console.log( $li.parent().prev().children().text())*/
+
+const $panels = $('.panel')
+$panels.each(function (){
+    const $panel = $(this)
+    const db = $panel.find('.list-group-item').length
+    const $label = $('<span>')
+})
