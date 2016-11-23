@@ -72,7 +72,7 @@ class RecipeController {
         const id = request.param('id')        
         const recipe = yield Recipe.find(id)
 
-        if(request.currentUser.id != recipe.currentUser.id){
+        if(request.currentUser.id != recipe.user_id){
             response.unauthorized('Nincs jog')
             return
         }
