@@ -1,7 +1,11 @@
 $('#btnLogin').on('click', function (e) {
-    e.prevetnDefault()
+    //e.prevetnDefault()
 
-    const $modal = $(`
+    const $modal = $('#loginModal')
+    if($modal.length>0){
+        $modal.modal('show')
+    } else {
+        const $modal = $(`
         <div class="modal fade confirm-modal" tabindex="-1" role="dialog" id="loginModal">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -14,4 +18,38 @@ $('#btnLogin').on('click', function (e) {
         </div>
         </div>
     `)
+
+        const $formContainer = $modal.find(".form-area")
+        const $errorContainer = $modal.find('alert').hide()
+        $formContainer.load('/login form', function () {
+            $modal.modal('show')
+            const $form = $modal.find('form')
+            $form.on('submit', function(e){
+                e.prevetnDefault()
+                const data = $(this).serializeArray() //az adott űrlapról kigyűjti az elküldhető inputmezőket
+                Promise.resolve(
+                    $.ajax({
+                        url: '/ajax/login',
+                        method: 'POST',
+                        data,
+                        dataType: 'json',
+                        headers: { 'csrf-token': $('[name="_csrf]').val() }
+                    })
+                )
+                    .then(json => {
+                        if(json.success){
+                            $('#navContainer').load('/ #navContainer', function(e) {
+                                $modal.modal('hide')
+                            })
+                        } else {
+                            $errorContainer.show().text('Nem megfelelo adatok')   
+                        }
+                    })
+                    .catch(err => {console.log(err)})
+            })
+        })        
+    }
+
+
+    
 })
