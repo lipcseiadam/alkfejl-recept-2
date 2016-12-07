@@ -12,15 +12,15 @@
   {% for category in categories %}
   <div class="col-md-4 col-sm-6">
     <div class="panel panel-default">
-      <b><div class="panel-heading">
+      <div class="panel-heading">
         {{ category.name }}
         <span class="label label-warning pull-right">Összes megtekintése</span>
-      </div></b>
+      </div>
       <ul class="list-group">
         {% for recipe in category.topRecipes %}
         <li class="list-group-item">
           <a href="/recipes/{{ recipe.id }}">
-             {{ recipe.name }} 
+            {{ recipe.name }}
           </a>
         </li>
         {% endfor %}

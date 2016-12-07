@@ -7,10 +7,10 @@ class User extends Lucid {
   apiTokens () {
     return this.hasMany('App/Model/Token')
   }
-  apiTokens () {
+
+  recipes () {
     return this.hasMany('App/Model/Recipe')
   }
-
 }
 
 module.exports = User

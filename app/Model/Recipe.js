@@ -3,12 +3,12 @@
 const Lucid = use('Lucid')
 
 class Recipe extends Lucid {
-    category () {
-        return this.belongsTo('App/Model/Category')
+  category () {
+    return this.belongsTo('App/Model/Category')
   }
 
-     user () {
-        return this.belongsTo('App/Model/User')
+  user () {
+    return this.belongsTo('App/Model/User')
   }
 }
 
